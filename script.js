@@ -13,9 +13,9 @@ let navLinks = document.querySelectorAll("header nav a");
 
 //about section
 function toggleReadMore() {
-  var aboutContent = document.querySelector(".about-content");
-  var aboutText = document.getElementById("about-text");
-  var readMoreBtn = document.getElementById("read-more-btn");
+  let aboutContent = document.querySelector(".about-content");
+  let aboutText = document.getElementById("about-text");
+  let readMoreBtn = document.getElementById("read-more-btn");
   aboutContent.classList.toggle("expanded");
   if (aboutContent.classList.contains("expanded")) {
     readMoreBtn.innerText = "Read Less";
@@ -28,7 +28,7 @@ function toggleReadMore() {
 
 // Set initial max-height for text truncation
 document.addEventListener("DOMContentLoaded", function () {
-  var aboutText = document.getElementById("about-text");
+  let aboutText = document.getElementById("about-text");
   aboutText.style.maxHeight = "9em";
 });
 
@@ -74,16 +74,68 @@ window.onscroll = () => {
 };
 
 // contact form
+// document.addEventListener("DOMContentLoaded", function () {
+//   emailjs.init("jSFJc7hCnpPB_QvDY"); // EmailJS publick key ID
+
+//   document
+//     .getElementById("contactForm")
+//     .addEventListener("submit", function (event) {
+//       event.preventDefault();
+
+//       // Check if event.target and its elements are defined
+//       const form = event.target;
+//       if (
+//         !form ||
+//         !form.fullName ||
+//         !form.emailAddress ||
+//         !form.mobileNumber ||
+//         !form.emailSubject ||
+//         !form.message
+//       ) {
+//         console.error("Form fields are missing.");
+//         alert("Form fields are missing. Please ensure all fields are present.");
+//         return;
+//       }
+
+//       // Get form data
+//       let formData = {
+//         fullName: form.fullName.value,
+//         emailAddress: form.emailAddress.value,
+//         mobileNumber: form.mobileNumber.value,
+//         emailSubject: form.emailSubject.value,
+//         message: form.message.value,
+//         toEmail: "kesireddynandhini99@gmail.com", //email address
+//       };
+
+//       formData.append('reply_to', formData.get('email'));
+
+//       // Send email
+//       emailjs.send("service_wuoqopf", "template_nq2p4ra", formData).then(
+//         function (response) {
+//           console.log("SUCCESS!", response.status, response.text);
+//           alert("Email sent successfully!");
+//         },
+//         function (error) {
+//           console.log("FAILED...", error);
+//           alert("Failed to send email. Please try again.");
+//         }
+//       );
+
+//       // Clear the form
+//       form.reset();
+//     });
+// });
+
 document.addEventListener("DOMContentLoaded", function () {
-  emailjs.init("jSFJc7hCnpPB_QvDY"); // EmailJS publick key ID
+  emailjs.init("jSFJc7hCnpPB_QvDY"); // Your EmailJS public key
 
   document
     .getElementById("contactForm")
     .addEventListener("submit", function (event) {
       event.preventDefault();
 
-      // Check if event.target and its elements are defined
       const form = event.target;
+
       if (
         !form ||
         !form.fullName ||
@@ -97,17 +149,18 @@ document.addEventListener("DOMContentLoaded", function () {
         return;
       }
 
-      // Get form data
+      // Prepare the data object
       let formData = {
         fullName: form.fullName.value,
         emailAddress: form.emailAddress.value,
         mobileNumber: form.mobileNumber.value,
         emailSubject: form.emailSubject.value,
         message: form.message.value,
-        toEmail: "kesireddynandhini99@gmail.com", //email address
+        toEmail: "kesireddynandhini99@gmail.com", // Your receiving email
+        reply_to: form.emailAddress.value // Set reply-to so you can reply to sender
       };
 
-      // Send email
+      // Send email using emailjs.send with an object
       emailjs.send("service_wuoqopf", "template_nq2p4ra", formData).then(
         function (response) {
           console.log("SUCCESS!", response.status, response.text);
@@ -119,7 +172,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }
       );
 
-      // Clear the form
+      // Reset the form
       form.reset();
     });
 });
